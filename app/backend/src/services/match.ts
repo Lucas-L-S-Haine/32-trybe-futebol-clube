@@ -35,3 +35,7 @@ export const createOne = async (matchData: Match) => {
   const match = matches[index];
   return match;
 };
+
+export const finish = async (id: number) => {
+  await Match.update({ inProgress: false }, { where: { id } });
+};
