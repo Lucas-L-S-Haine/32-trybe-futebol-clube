@@ -15,3 +15,8 @@ export const finish: RequestHandler = (req, res, next) => service
   .finish(Number(req.params.id))
   .then(() => res.status(200).send({ message: 'OK' }))
   .catch(next);
+
+export const updateOne: RequestHandler = (req, res, next) => service
+  .updateOne(Number(req.params.id), req.body)
+  .then(() => res.status(200).send({ message: 'OK' }))
+  .catch(next);

@@ -39,3 +39,8 @@ export const createOne = async (matchData: Match) => {
 export const finish = async (id: number) => {
   await Match.update({ inProgress: false }, { where: { id } });
 };
+
+export const updateOne = async (id: number, matchData: Match) => {
+  const options = { ...matchData, id } as unknown as WhereOptions<Match>;
+  await Match.update({ ...matchData }, { where: options });
+};
