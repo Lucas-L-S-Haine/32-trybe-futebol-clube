@@ -22,13 +22,10 @@ class App {
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
-    const rootEntrypoint: RequestHandler = (_req, res, _next) => res
-      .status(200).send({ message: 'Locked and loaded, little lizard!!!' });
 
     this.app.use(accessControl);
     this.app.use(json());
     this.app.use(router);
-    this.app.use('/', rootEntrypoint);
     this.app.use(errorHandler);
     this.app.use(notFoundHandler);
     // ...
