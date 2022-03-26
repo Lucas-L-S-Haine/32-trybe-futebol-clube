@@ -28,7 +28,7 @@ class App {
     this.app.use(accessControl);
     this.app.use(json());
     this.app.use(router);
-    this.app.use(rootEntrypoint);
+    this.app.use('/', rootEntrypoint);
     this.app.use(errorHandler);
     this.app.use(notFoundHandler);
     // ...
