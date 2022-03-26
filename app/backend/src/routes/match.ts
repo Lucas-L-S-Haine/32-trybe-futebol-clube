@@ -1,8 +1,12 @@
 import { Router } from 'express';
-import { readAll } from '../controllers/match';
+import { readAll, createOne } from '../controllers/match';
+import { validateToken } from '../auth';
 
 const matchRouter = Router();
 
-matchRouter.get('/', readAll);
+matchRouter
+  .route('/')
+  .get(readAll)
+  .post(validateToken, createOne);
 
 export default matchRouter;
