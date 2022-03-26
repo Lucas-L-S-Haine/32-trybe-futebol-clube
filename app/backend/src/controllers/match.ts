@@ -6,4 +6,7 @@ export const readAll: RequestHandler = (req, res, next) => service
   .then((matches) => res.status(200).json(matches))
   .catch(next);
 
-export default readAll;
+export const createOne: RequestHandler = (req, res, next) => service
+  .createOne(req.body)
+  .then((match) => res.status(201).json(match))
+  .catch(next);
