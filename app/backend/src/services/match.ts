@@ -29,7 +29,7 @@ export const createOne = async (matchData: Match) => {
   if (awayId < 1 || awayId > 16) throw new HttpException(401, NOT_FOUND_TEAM_ERROR);
   if (homeId === awayId) throw new HttpException(401, EQUAL_TEAM_ERROR);
   await Match.create(matchData);
-  const options = matchData as unknown as WhereOptions<Match> | undefined;
+  const options = { ...matchData } as unknown as WhereOptions<Match>;
   const matches = await Match.findAll({ where: options });
   const index = matches.length - 1;
   const match = matches[index];
