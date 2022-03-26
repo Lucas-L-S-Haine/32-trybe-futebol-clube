@@ -26,29 +26,29 @@ describe('Verifica se o usuário fez login', () => {
   it('O usuário não deve se conectar com email inválido', async () => {
     const loginData = { email: 'userr@user.com', password: 'secret_user' };
     const response = await chai.request(app).post('/login').send(loginData);
-    const message = response.text;
+    const { message } = JSON.parse(response.text);
     expect(response).to.have.status(401);
-    expect(message).to.be.equal('{"message":"Incorrect email or password"}');
+    expect(message).to.be.equal('Incorrect email or password');
   });
   it('O usuário não deve se conectar com uma senha inválida', async () => {
     const loginData = { email: 'user@user.com', password: 'secret' };
     const response = await chai.request(app).post('/login').send(loginData);
-    const message = response.text;
+    const { message } = JSON.parse(response.text);
     expect(response).to.have.status(401);
-    expect(message).to.be.equal('{"message":"Incorrect email or password"}');
+    expect(message).to.be.equal('Incorrect email or password');
   });
   it('O usuário não deve se conectar sem fornecer um email', async () => {
     const loginData = { password: 'secret_user' };
     const response = await chai.request(app).post('/login').send(loginData);
-    const message = response.text;
+    const { message } = JSON.parse(response.text);
     expect(response).to.have.status(401);
-    expect(message).to.be.equal('{"message":"All fields must be filled"}');
+    expect(message).to.be.equal('All fields must be filled');
   });
   it('O usuário não deve se conectar sem informar a senha', async () => {
     const loginData = { email: 'user@user.com' };
     const response = await chai.request(app).post('/login').send(loginData);
-    const message = response.text;
+    const { message } = JSON.parse(response.text);
     expect(response).to.have.status(401);
-    expect(message).to.be.equal('{"message":"All fields must be filled"}');
+    expect(message).to.be.equal('All fields must be filled');
   });
 });
