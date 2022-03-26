@@ -7,14 +7,14 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-const standardMessage = 'Locked and loaded, little lizard!!!';
-
 describe('Verifica se os clubes aparecem na página', () => {
   it('Retorna uma lista de clubes com sucesso', async () => {
+    const errorMessage = 'Clubs not found';
     const response = await chai.request(app).get('/clubs');
     const cruzeiro = {"id":5,"clubName":"Cruzeiro"};
     const clubs = response.body;
-    expect(response.body.message).not.to.be.equal(standardMessage);
+    expect(response, 'not found').not.to.have.status(404);
+    expect(response, 'internal server error').not.to.have.status(500);
     expect(response).to.have.status(200);
     expect(clubs).to.be.an('array');
     expect(clubs).to.have.lengthOf(16);
@@ -27,7 +27,8 @@ describe('Procura um clube específico pelo "id"', () => {
     const response = await chai.request(app).get('/clubs/5');
     const cruzeiro = {"id":5,"clubName":"Cruzeiro"};
     const club = response.body;
-    expect(response.body.message).not.to.be.equal(standardMessage);
+    expect(response, 'not found').not.to.have.status(404);
+    expect(response, 'internal server error').not.to.have.status(500);
     expect(response).to.have.status(200);
     expect(club).to.be.an('object');
     expect(club).not.to.be.undefined;

@@ -7,8 +7,6 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-const standardMessage = 'Locked and loaded, little lizard!!!';
-
 describe('Verifica se as partidas aparecem na página', () => {
   it('Retorna uma lista de partidas com sucesso', async () => {
     const response = await chai.request(app).get('/matchs');
@@ -23,7 +21,8 @@ describe('Verifica se as partidas aparecem na página', () => {
       homeClub: { "clubName": "São Paulo" },
       awayClub: { clubName: "Grêmio" },
     }
-    expect(response.body.message).not.to.be.equal(standardMessage);
+    expect(response, 'not found').not.to.have.status(404);
+    expect(response, 'internal server error').not.to.have.status(500);
     expect(response).to.have.status(200);
     expect(matches).to.be.an('array');
     expect(matches[0]).to.deep.equal(openingMatch);
