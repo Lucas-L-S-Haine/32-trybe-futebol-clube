@@ -2,7 +2,7 @@ import { Model, DataTypes, Sequelize, Options } from 'sequelize';
 import * as databaseOptions from '../config/database';
 
 const databaseConfig = databaseOptions as unknown as Options;
-const db = new Sequelize(databaseConfig);
+const sequelize = new Sequelize(databaseConfig);
 
 class Club extends Model {
   id: number;
@@ -23,11 +23,11 @@ Club.init(
     },
   },
   {
+    modelName: 'Club',
     tableName: 'clubs',
     timestamps: false,
-    sequelize: db,
-    modelName: 'Club',
     underscored: true,
+    sequelize,
   },
 );
 

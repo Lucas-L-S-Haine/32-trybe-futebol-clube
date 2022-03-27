@@ -2,7 +2,7 @@ import { Model, DataTypes, Sequelize, Options } from 'sequelize';
 import * as databaseOptions from '../config/database';
 
 const databaseConfig = databaseOptions as unknown as Options;
-const db = new Sequelize(databaseConfig);
+const sequelize = new Sequelize(databaseConfig);
 
 class Match extends Model {
   id: number;
@@ -55,11 +55,11 @@ Match.init(
     },
   },
   {
+    modelName: 'Match',
     tableName: 'matchs',
     timestamps: false,
-    sequelize: db,
-    modelName: 'Match',
     underscored: true,
+    sequelize,
   },
 );
 
