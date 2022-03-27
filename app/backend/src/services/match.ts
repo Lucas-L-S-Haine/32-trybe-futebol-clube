@@ -41,6 +41,6 @@ export const finish = async (id: number) => {
 };
 
 export const updateOne = async (id: number, matchData: Match) => {
-  const options = { ...matchData, id } as unknown as WhereOptions<Match>;
-  await Match.update({ ...matchData }, { where: options });
+  // const options = { ...matchData, id } as unknown as WhereOptions<Match>;
+  await Match.update({ ...matchData }, { where: { id } });
 };
