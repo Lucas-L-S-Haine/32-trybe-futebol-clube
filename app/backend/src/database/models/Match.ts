@@ -1,6 +1,5 @@
 import { Model, DataTypes, Sequelize, Options } from 'sequelize';
 import * as databaseOptions from '../config/database';
-import Club from './Club';
 
 const databaseConfig = databaseOptions as unknown as Options;
 const db = new Sequelize(databaseConfig);
@@ -63,10 +62,5 @@ Match.init(
     underscored: true,
   },
 );
-
-Club.hasMany(Match, { foreignKey: 'id', as: 'homeTeam' });
-Club.hasMany(Match, { foreignKey: 'id', as: 'awayTeam' });
-Match.belongsTo(Club, { foreignKey: 'homeTeam', as: 'homeClub' });
-Match.belongsTo(Club, { foreignKey: 'awayTeam', as: 'awayClub' });
 
 export default Match;
