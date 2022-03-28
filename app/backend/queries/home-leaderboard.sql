@@ -1,4 +1,3 @@
-USE TRYBE_FUTEBOL_CLUBE;
 SELECT
 C.club_name AS name,
 SUM(3 * (M.home_team_goals > M.away_team_goals) +
