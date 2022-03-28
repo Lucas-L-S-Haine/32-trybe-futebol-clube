@@ -2,7 +2,11 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { sequelize } from '../database/models';
 
-const generalScore = readFileSync(resolve(__dirname, '..', 'queries/leaderboard.sql'), 'utf-8');
+const generalScore = readFileSync(
+  resolve(__dirname, '../..', 'leaderboard.sql'),
+  'utf-8',
+);
+console.log(generalScore);
 
 export const readAll = async () => {
   const leaderboard = await sequelize.query(generalScore);
