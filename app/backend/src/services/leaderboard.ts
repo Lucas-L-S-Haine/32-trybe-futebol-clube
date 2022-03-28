@@ -10,9 +10,12 @@ const homeScore = readFileSync(resolve(__dirname, SQL_DIR, 'home-leaderboard.sql
 const awayScore = readFileSync(resolve(__dirname, SQL_DIR, 'away-leaderboard.sql'), 'utf-8');
 
 export const readAll = async () => {
-  const [leaderboard] = await sequelize.query(generalScore);
-  // const leaderboard = await sequelize.query(generalScore, { model: Score, mapToModel: true});
-  return leaderboard;
+  const [score] = await sequelize.query(generalScore);
+  const leaderboard = score as IScore[];
+  return leaderboard.map((team) => ({
+    ...team,
+    efficiency: Number(team.efficiency),
+  }));
 };
 
 export const readHome = async () => {
@@ -25,8 +28,12 @@ export const readHome = async () => {
 };
 
 export const readAway = async () => {
-  const [leaderboard] = await sequelize.query(awayScore);
-  return leaderboard;
+  const [score] = await sequelize.query(awayScore);
+  const leaderboard = score as IScore[];
+  return leaderboard.map((team) => ({
+    ...team,
+    efficiency: Number(team.efficiency),
+  }));
 };
 
 /*
