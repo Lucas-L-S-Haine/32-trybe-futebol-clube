@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { sequelize } from '../database/models';
+import { IScore } from '../utils/interfaces';
 
 const SQL_DIR = '../../queries';
 
@@ -15,8 +16,12 @@ export const readAll = async () => {
 };
 
 export const readHome = async () => {
-  const [leaderboard] = await sequelize.query(homeScore);
-  return leaderboard;
+  const [score] = await sequelize.query(homeScore);
+  const leaderboard = score as IScore[];
+  return leaderboard.map((team) => ({
+    ...team,
+    efficiency: Number(team.efficiency),
+  }));
 };
 
 export const readAway = async () => {
