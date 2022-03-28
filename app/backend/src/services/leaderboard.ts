@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { sequelize } from '../database/models';
 
 const generalScore = readFileSync(
-  resolve(__dirname, '../..', 'leaderboard.sql'),
+  resolve(__dirname, '../..', 'queries/leaderboard.sql'),
   'utf-8',
 );
 

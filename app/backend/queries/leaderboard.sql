@@ -15,6 +15,9 @@ ROUND(SUM(3 * (M.home_team_goals > M.away_team_goals) +
 FROM matchs as M
 INNER JOIN clubs as C
 ON M.home_team = C.id
+AND M.in_progress = false
+OR M.away_team = C.id
+AND M.in_progress = false
 GROUP BY C.id
 ORDER BY totalPoints DESC,
 totalVictories DESC,
