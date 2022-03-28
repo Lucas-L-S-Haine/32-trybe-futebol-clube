@@ -8,7 +8,7 @@ const generalScore = readFileSync(
 );
 
 export const readAll = async () => {
-  const leaderboard = await sequelize.query(generalScore);
+  const [leaderboard] = await sequelize.query(generalScore);
   // const leaderboard = await sequelize.query(generalScore, { model: Score, mapToModel: true});
   return leaderboard;
 };
