@@ -6,7 +6,6 @@ const generalScore = readFileSync(
   resolve(__dirname, '../..', 'leaderboard.sql'),
   'utf-8',
 );
-console.log(generalScore);
 
 export const readAll = async () => {
   const leaderboard = await sequelize.query(generalScore);
