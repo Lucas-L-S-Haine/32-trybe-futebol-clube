@@ -1,7 +1,11 @@
 import { Router } from 'express';
-import { readHome, readAway } from '../controllers/leaderboard';
+import { readAll, readHome, readAway } from '../controllers/leaderboard';
 
 const leaderboardRouter = Router();
+
+leaderboardRouter
+  .route('/')
+  .get(readAll);
 
 leaderboardRouter
   .route('/home')
