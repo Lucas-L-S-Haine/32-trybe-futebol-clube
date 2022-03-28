@@ -2,10 +2,11 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { sequelize } from '../database/models';
 
-const generalScore = readFileSync(
-  resolve(__dirname, '../..', 'queries/leaderboard.sql'),
-  'utf-8',
-);
+const SQL_DIR = '../../queries';
+
+const generalScore = readFileSync(resolve(__dirname, SQL_DIR, 'leaderboard.sql'), 'utf-8');
+const homeScore = readFileSync(resolve(__dirname, SQL_DIR, 'home-leaderboard.sql'), 'utf-8');
+const awayScore = readFileSync(resolve(__dirname, SQL_DIR, 'away-leaderboard.sql'), 'utf-8');
 
 export const readAll = async () => {
   const [leaderboard] = await sequelize.query(generalScore);
@@ -14,9 +15,13 @@ export const readAll = async () => {
 };
 
 export const readHome = async () => {
+  const [leaderboard] = await sequelize.query(homeScore);
+  return leaderboard;
 };
 
 export const readAway = async () => {
+  const [leaderboard] = await sequelize.query(awayScore);
+  return leaderboard;
 };
 
 /*
