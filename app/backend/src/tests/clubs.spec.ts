@@ -2,7 +2,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 import * as sinon from 'sinon';
 import { Club } from '../database/models';
-import { clubs as mockedClubs } from './mocks';
+import { clubs as mockData } from './mocks';
 
 import { app } from '../app';
 
@@ -11,10 +11,9 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Verifica se os clubes aparecem na página', () => {
-  const modelClubs = mockedClubs as unknown as Club[];
+  const modelClubs = mockData as unknown as Club[];
   sinon.stub(Club, 'findAll').resolves(modelClubs);
   it('Retorna uma lista de clubes com sucesso', async () => {
-    const errorMessage = 'Clubs not found';
     const response = await chai.request(app).get('/clubs');
     const cruzeiro = {"id":5,"clubName":"Cruzeiro"};
     const clubs = response.body;
@@ -28,7 +27,7 @@ describe('Verifica se os clubes aparecem na página', () => {
 });
 
 describe('Procura um clube específico pelo "id"', () => {
-  const modelClub = mockedClubs[4] as unknown as Club;
+  const modelClub = mockData[4] as unknown as Club;
   sinon.stub(Club, 'findByPk').resolves(modelClub);
   it('Retorna um objeto com os dados de um clube', async () => {
     const response = await chai.request(app).get('/clubs/5');

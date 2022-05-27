@@ -1,5 +1,8 @@
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
+import * as sinon from 'sinon';
+import { Match } from '../database/models';
+import { matches as mockData } from './mocks';
 
 import { app } from '../app';
 
@@ -8,6 +11,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Verifica se as partidas aparecem na página', () => {
+  const modelMatches = mockData as unknown as Match[];
   it('Retorna uma lista de partidas com sucesso', async () => {
     const response = await chai.request(app).get('/matchs');
     const matches = response.body;

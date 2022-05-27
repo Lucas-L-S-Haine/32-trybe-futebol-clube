@@ -1,5 +1,8 @@
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
+import * as sinon from 'sinon';
+import { User } from '../database/models';
+import { users as mockData } from './mocks';
 
 import { app } from '../app';
 
@@ -9,6 +12,8 @@ const { expect } = chai;
 const tokenExpression = /^ey[\w-]+\.ey[\w-]+\.[\w-]+$/
 
 describe('Verifica se o usuário fez login', () => {
+  const [_, modelUser] = mockData as unknown as User[];
+  sinon.stub(User, 'findOne').resolves(modelUser);
   it('O usuário deve ser capaz de se conectar com sucesso', async () => {
     const loginData = { email: 'user@user.com', password: 'secret_user' };
     const response = await chai.request(app).post('/login').send(loginData);
